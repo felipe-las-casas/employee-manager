@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   View,
   Text,
@@ -9,9 +9,14 @@ import {
 import { Styles } from "./styles";
 import { Employee } from "../../models/Employee";
 import { EmployeeItem } from "../../components/EmployeeItem";
+import EmployeesContext from "../../components/context/EmployeesContext";
 
 export const EmployeeScreen = () => {
-  const [employees, setEmployees] = useState<Employee[]>([]);
+  const { employees } = useContext(EmployeesContext);
+  const { addEmployee } = useContext(EmployeesContext);
+  
+
+  //const [employees, setEmployees] = useState<Employee[]>([]);
   const [name, setName] = useState<string>("");
   const [occupation, setOccupation] = useState<string>("");
   const [department, setDepartment] = useState<string>("");
@@ -66,20 +71,18 @@ export const EmployeeScreen = () => {
     return `R$ ${num.replace(".", ",")}`;
   };
 
-  const addEmployee = () => {
+  const newEmployee: Employee = { id: String(Date.now()), name, occupation, department, salary };
+  const validate = () => {
     if (!validateInputs()) {
       return;
     }
 
-    const newEmployee: Employee = { name, occupation, department, salary };
-    setEmployees([...employees, newEmployee]);
     setName("");
     setOccupation("");
     setDepartment("");
     setSalary("");
     setErrors([]);
-  };
-
+  }
   return (
     <View style={Styles.container}>
       <Text style={Styles.header}>Cadastro funcionários</Text>
@@ -122,8 +125,9 @@ export const EmployeeScreen = () => {
             onChangeText={(value) => setSalary(formatValue(value))}
           />
         </View>
-        <TouchableOpacity style={[Styles.button]} onPress={addEmployee}>
-          <Text style={Styles.buttonText}>Adicionar</Text>
+        <TouchableOpacity style={[Styles.button]} onPress={() => addEmployee(newEmployee)}>
+          <Text style={Styles.buttonText}
+          >Adicionar</Text>
         </TouchableOpacity>
       </View>
 
