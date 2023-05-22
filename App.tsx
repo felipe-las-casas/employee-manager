@@ -1,12 +1,11 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
-import { EmployeeScreen } from "./screens/Main";
-import { EmployeeContextProvider } from "./components/context/EmployeesContext";
+import { EmployeeContextProvider } from "./src/components/context/EmployeesContext";
+import { Routes } from "./src/routes";
+
 
 export default function App() {
   return (
     <EmployeeContextProvider>
-      <EmployeeScreen />
+      <Routes />
     </EmployeeContextProvider>
   );
 }

@@ -4,7 +4,9 @@ import { Styles } from "./styles";
 import { Employee } from "../../models/Employee";
 import EmployeesContext from "../../components/context/EmployeesContext";
 
-export const EmployeeItem = ({ employee }: { employee: Employee }) => {
+
+export const EmployeeItem = ({ employee, openScreen }: { employee: Employee }) => {
+  //const navigation = useNavigation();
 
   const { deleteEmployee } = useContext(EmployeesContext);
   return (
@@ -22,6 +24,10 @@ export const EmployeeItem = ({ employee }: { employee: Employee }) => {
       <Button
         title="Deletar"
         onPress={() => deleteEmployee(employee.id)}
+      />
+      <Button
+        title='Editar'
+        onPress={openScreen}
       />
     </View>
   );

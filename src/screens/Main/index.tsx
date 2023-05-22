@@ -11,9 +11,12 @@ import { Employee } from "../../models/Employee";
 import { EmployeeItem } from "../../components/EmployeeItem";
 import EmployeesContext from "../../components/context/EmployeesContext";
 
-export const EmployeeScreen = () => {
+export const EmployeeScreen = ({ navigation }: any) => {
   const { employees } = useContext(EmployeesContext);
   const { addEmployee } = useContext(EmployeesContext);
+  const openScreen = () => {
+    navigation.navigate('Edit')
+  }
   
 
   //const [employees, setEmployees] = useState<Employee[]>([]);
@@ -144,7 +147,7 @@ export const EmployeeScreen = () => {
       <View style={Styles.list}>
         <FlatList
           data={employees}
-          renderItem={(unit) => <EmployeeItem employee={unit.item} />}
+          renderItem={(unit) => <EmployeeItem employee={unit.item} openScreen={openScreen} />}
           keyExtractor={(item, index) => `${index}`}
         />
       </View>
